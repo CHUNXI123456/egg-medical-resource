@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>蛋仔医疗资源保障网 - 官方服务平台</title>
+    <style>
+        :root {
+            --primary-dark: #1a3c6e;
+            --primary-mid: #2a5a9c;
+            --primary-light: #4a82c4;
+            --bg-light: #f0f4fa;
+            --bg-white: #ffffff;
+            --accent-gold: #b8963e;
+            --accent-gold-light: #d4b96a;
+            --text-dark: #222;
+            --text-mid: #444;
+            --text-light: #666;
+            --border-color: #c8d4e4;
+            --border-light: #e0e8f0;
+            --success-bg: #e8f5e9;
+            --success-border: #4caf50;
+            --error-bg: #fdecea;
+            --error-border: #e53935;
+            --info-bg: #e3f2fd;
+            --info-border: #42a5f5;
+            --shadow-sm: 0 2px 8px rgba(26, 60, 110, 0.08);
+            --shadow-md: 0 4px 20px rgba(26, 60, 110, 0.12);
+            --shadow-lg: 0 8px 40px rgba(26, 60, 110, 0.16);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --font-serif: "SimSun", "STSong", "Noto Serif SC", serif;
+            --font-sans: "SimHei", "STHeiti", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-sans); background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; font-size: 15px; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+        .top-banner { background: linear-gradient(135deg, #0f2a4a 0%, #1a3c6e 40%, #1e4a80 70%, #1a3c6e 100%); color: #fff; padding: 15px 0; border-bottom: 4px solid var(--accent-gold); position: relative; overflow: hidden; flex-shrink: 0; }
+        .top-banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.02) 80px, rgba(255,255,255,0.02) 160px); pointer-events: none; }
+        .banner-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 20px; position: relative; z-index: 1; flex-wrap: wrap; }
+        .logo-container { flex-shrink: 0; display: flex; align-items: center; gap: 14px; }
+        .logo-svg { width: 60px; height: 60px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .site-title-group { display: flex; flex-direction: column; }
+        .site-title { font-size: 26px; font-weight: 700; letter-spacing: 3px; font-family: var(--font-serif); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .site-subtitle { font-size: 12px; letter-spacing: 1.5px; color: #b8cfe8; margin-top: 2px; }
+        .top-right { margin-left: auto; display: flex; align-items: center; gap: 15px; z-index: 2; flex-wrap: wrap; }
+        .gov-badge { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 6px 16px; font-size: 12px; letter-spacing: 1px; color: #e8f0fa; backdrop-filter: blur(4px); }
+        .gov-badge svg { width: 18px; height: 18px; fill: #ffd700; }
+        .user-icon-btn { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.5); border-radius: 50%; width: 45px; height: 45px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; color: #fff; }
+        .user-icon-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+        .user-icon-btn svg { width: 24px; height: 24px; fill: #fff; }
+        .logout-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 6px 16px; font-size: 13px; color: #fff; cursor: pointer; transition: all 0.3s; display: none; }
+        .logout-btn:hover { background: rgba(255,255,255,0.3); }
+        .navbar { background: var(--bg-white); border-bottom: 2px solid var(--border-color); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100; flex-shrink: 0; }
+        .navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+        .nav-link { display: inline-block; padding: 14px 20px; font-size: 15px; font-weight: 500; color: var(--text-mid); text-decoration: none; letter-spacing: 1px; border-bottom: 3px solid transparent; transition: all 0.2s; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-sans); }
+        .nav-link:hover { color: var(--primary-dark); background: #f5f8fc; border-bottom-color: var(--primary-mid); }
+        .nav-link.active { color: var(--primary-dark); border-bottom-color: var(--primary-dark); font-weight: 700; }
+        .notice-bar { background: #e8f0fe; border-bottom: 1px solid #c8d8ec; padding: 6px 0; flex-shrink: 0; }
+        .notice-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 12px; font-size: 13px; color: #2a4a70; }
+        .notice-label { background: var(--primary-dark); color: #fff; padding: 2px 10px; border-radius: 3px; font-size: 12px; font-weight: 600; letter-spacing: 1px; flex-shrink: 0; }
+        .notice-text { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .main-content { flex: 1; max-width: 1200px; margin: 0 auto; padding: 28px 24px 40px; width: 100%; }
+        .page { display: none; animation: fadeIn 0.3s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .section-title { font-size: 20px; font-weight: 700; color: var(--primary-dark); letter-spacing: 2px; margin-bottom: 6px; font-family: var(--font-serif); display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; display: inline-block; width: 4px; height: 24px; background: var(--accent-gold); border-radius: 2px; }
+        .section-desc { font-size: 13px; color: var(--text-light); margin-bottom: 20px; padding-left: 14px; letter-spacing: 0.5px; }
+        .card { background: var(--bg-white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); overflow: hidden; transition: box-shadow 0.3s; margin-bottom: 20px; }
+        .card-header { background: linear-gradient(135deg, #f8fafc 0%, #eef3fa 100%); padding: 14px 24px; border-bottom: 2px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
+        .card-header-icon { width: 24px; height: 24px; fill: var(--primary-mid); flex-shrink: 0; }
+        .card-header-title { font-size: 16px; font-weight: 700; color: var(--primary-dark); letter-spacing: 1px; }
+        .card-body { padding: 24px; }
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; font-size: 14px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
+        .required { color: #d32f2f; margin-left: 2px; }
+        .form-input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px; font-family: var(--font-sans); color: var(--text-dark); background: #fcfdfe; transition: all 0.25s; outline: none; }
+        .form-input:focus { border-color: var(--primary-mid); box-shadow: 0 0 0 3px rgba(42,90,156,0.12); background: #fff; }
+        .form-input.error { border-color: var(--error-border); background: #fffafa; }
+        .form-hint { font-size: 12px; color: #999; margin-top: 4px; }
+        .form-error { font-size: 12px; color: #d32f2f; margin-top: 4px; display: none; }
+        .form-error.show { display: block; }
+        .captcha-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .captcha-display { flex-shrink: 0; background: #f0f4fa; border: 1.5px dashed var(--border-color); border-radius: var(--radius-sm); padding: 8px 16px; font-size: 20px; font-weight: 700; letter-spacing: 6px; color: #1a3c6e; cursor: pointer; user-select: none; font-family: "Courier New", monospace; min-width: 100px; text-align: center; transition: background 0.2s; }
+        .captcha-display:hover { background: #e4ecf6; }
+        .captcha-refresh-btn { padding: 8px 14px; background: #e8f0fe; border: 1px solid #c8d8ec; border-radius: var(--radius-sm); font-size: 13px; color: #2a5a9c; cursor: pointer; letter-spacing: 1px; transition: all 0.2s; font-family: var(--font-sans); }
+        .captcha-refresh-btn:hover { background: #d8e4f4; border-color: #a0b8d0; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 24px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.25s; font-family: var(--font-sans); text-decoration: none; }
+        .btn-primary { background: linear-gradient(135deg, #1a3c6e 0%, #2a5a9c 100%); color: #fff; box-shadow: 0 2px 8px rgba(26,60,110,0.25); }
+        .btn-primary:hover { background: linear-gradient(135deg, #122e54 0%, #1e4a80 100%); box-shadow: 0 4px 16px rgba(26,60,110,0.35); transform: translateY(-1px); }
+        .btn-gold { background: linear-gradient(135deg, #b8963e 0%, #d4b96a 100%); color: #fff; box-shadow: 0 2px 8px rgba(184,150,62,0.3); }
+        .btn-gold:hover { background: linear-gradient(135deg, #a08030 0%, #c0a050 100%); transform: translateY(-1px); }
+        .btn-secondary { background: #f0f4fa; color: #2a5a9c; border: 1.5px solid #c8d8ec; }
+        .btn-secondary:hover { background: #e0eaf6; border-color: #a0b8d0; }
+        .btn-sm { padding: 6px 14px; font-size: 13px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .result-box { margin-top: 16px; padding: 16px 20px; border-radius: var(--radius-sm); font-size: 14px; letter-spacing: 0.5px; display: none; line-height: 1.8; }
+        .result-box.show { display: block; }
+        .result-box.success { background: var(--success-bg); border: 1px solid var(--success-border); color: #2e7d32; }
+        .result-box.error { background: var(--error-bg); border: 1px solid var(--error-border); color: #c62828; }
+        .result-box.info { background: var(--info-bg); border: 1px solid var(--info-border); color: #0d47a1; }
+        .insurance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px; }
+        .insurance-card { border: 2px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; text-align: center; transition: all 0.3s; background: #fcfdfe; cursor: pointer; }
+        .insurance-card:hover { border-color: var(--primary-mid); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .insurance-card.selected { border-color: var(--primary-dark); background: #f0f6ff; box-shadow: 0 0 0 3px rgba(26,60,110,0.1); }
+        .insurance-icon { width: 52px; height: 52px; margin: 0 auto 12px; fill: var(--primary-mid); }
+        .insurance-name { font-size: 16px; font-weight: 700; color: var(--primary-dark); letter-spacing: 1px; margin-bottom: 6px; }
+        .insurance-desc { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+        .insurance-price { font-size: 22px; font-weight: 700; color: #b8963e; }
+        .insurance-price small { font-size: 13px; font-weight: 400; color: #999; }
+        .info-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .info-table th, .info-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+        .info-table th { background: #f0f4fa; color: var(--primary-dark); font-weight: 600; width: 140px; }
+        .insurance-tag { display: inline-block; background: #e8f0fe; color: #2a5a9c; padding: 3px 10px; border-radius: 12px; font-size: 12px; margin: 2px 4px 2px 0; border: 1px solid #c8d8ec; }
+        .balance-box { background: #f8fbff; border: 1px solid #c8d8ec; border-radius: var(--radius-md); padding: 20px; margin-bottom: 20px; text-align: center; }
+        .balance-label { font-size: 14px; color: var(--text-light); }
+        .balance-amount { font-size: 36px; font-weight: 700; color: var(--primary-dark); letter-spacing: 2px; margin: 4px 0; }
+        .transaction-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .transaction-table th, .transaction-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+        .transaction-table th { background: #f0f4fa; color: var(--primary-dark); }
+        .transaction-table .income { color: #2e7d32; font-weight: 600; }
+        .transaction-table .expense { color: #c62828; font-weight: 600; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); }
+        .modal-overlay.show { display: flex; }
+        .modal { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); width: 90%; max-width: 420px; padding: 30px; position: relative; animation: modalIn 0.3s; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .modal-close { position: absolute; top: 12px; right: 16px; background: none; border: none; font-size: 28px; cursor: pointer; color: #999; transition: color 0.2s; line-height: 1; }
+        .modal-close:hover { color: #333; }
+        .modal-title { font-size: 22px; font-weight: 700; color: var(--primary-dark); margin-bottom: 20px; text-align: center; letter-spacing: 2px; }
+        .modal-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); }
+        .modal-tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; font-weight: 600; color: var(--text-light); border-bottom: 3px solid transparent; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-sans); }
+        .modal-tab.active { color: var(--primary-dark); border-bottom-color: var(--primary-dark); }
+        .modal-tab:hover { color: var(--primary-dark); }
+        .modal-footer { display: flex; justify-content: center; margin-top: 15px; }
+        .skip-link { color: var(--text-light); cursor: pointer; text-decoration: underline; font-size: 13px; background: none; border: none; }
+        .skip-link:hover { color: var(--primary-dark); }
+        .welcome-section { background: linear-gradient(135deg, #f0f6ff 0%, #e8f0fe 100%); border-radius: var(--radius-lg); padding: 30px; text-align: center; margin-bottom: 24px; border: 1px solid #c8d8ec; }
+        .footer { background: #0f2a4a; color: #b8cfe8; padding: 20px 0; border-top: 4px solid var(--accent-gold); flex-shrink: 0; margin-top: auto; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; font-size: 13px; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 8px; flex-wrap: wrap; }
+        .footer-links a { color: #8ab4d8; text-decoration: none; cursor: pointer; }
+        .footer-links a:hover { color: #fff; }
+        .card-preview-container { text-align: center; margin-bottom: 20px; }
+        .card-preview-container canvas { max-width: 100%; height: auto; border-radius: 8px; box-shadow: var(--shadow-md); border: 2px solid #ccc; }
+        .style-options { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 15px; }
+        .style-option { width: 60px; height: 40px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .style-option.selected { border-color: var(--primary-dark); box-shadow: 0 0 0 2px rgba(26,60,110,0.3); }
+        .style-option.style1 { background: linear-gradient(135deg, #1a3c6e, #2a5a9c); }
+        .style-option.style2 { background: linear-gradient(135deg, #b8963e, #d4b96a); }
+        .style-option.style3 { background: linear-gradient(135deg, #2e7d32, #4caf50); }
+        .style-option.style4 { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+        .style-option.style5 { background: linear-gradient(135deg, #b71c1c, #ef5350); }
+        .checkbox-group { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-dark); }
+        @media (max-width: 768px) {
+            .insurance-grid { grid-template-columns: 1fr; }
+            .banner-inner { justify-content: center; text-align: center; }
+            .site-title { font-size: 20px; }
+            .gov-badge { margin-left: 0; }
+            .nav-link { padding: 10px 14px; font-size: 13px; }
+            .card-body { padding: 16px; }
+            .logo-svg { width: 48px; height: 48px; }
+            .balance-amount { font-size: 28px; }
+            .card-preview-container canvas { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部横幅 -->
+    <header class="top-banner">
+        <div class="banner-inner">
+            <div class="logo-container">
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2a5a9c;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#1a3c6e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0f2a4a;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#d4b96a;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#b8963e;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 4 L88 16 L88 52 C88 74 72 88 50 96 C28 88 12 74 12 52 L12 16 Z" fill="url(#shieldGrad)" stroke="#d4b96a" stroke-width="2.5"/>
+                    <path d="M50 10 L82 20 L82 52 C82 70 68 82 50 89 C32 82 18 70 18 52 L18 20 Z" fill="none" stroke="rgba(212,185,106,0.5)" stroke-width="1.2"/>
+                    <rect x="42" y="28" width="16" height="44" rx="2" fill="#ffffff" />
+                    <rect x="28" y="42" width="44" height="16" rx="2" fill="#ffffff" />
+                    <rect x="46" y="36" width="8" height="28" rx="1.5" fill="#d4b96a" opacity="0.5" />
+                    <rect x="36" y="46" width="28" height="8" rx="1.5" fill="#d4b96a" opacity="0.5" />
+                    <polygon points="50,6 52.5,13 60,13 54,17.5 56.5,24.5 50,20 43.5,24.5 46,17.5 40,13 47.5,13" fill="#ffd700" stroke="#b8963e" stroke-width="0.5"/>
+                    <g fill="#d4b96a" opacity="0.85">
+                        <ellipse cx="8" cy="35" rx="3" ry="5" transform="rotate(-30 8 35)" />
+                        <ellipse cx="6" cy="45" rx="3" ry="5" transform="rotate(-30 6 45)" />
+                        <ellipse cx="7" cy="55" rx="3" ry="5" transform="rotate(-30 7 55)" />
+                        <ellipse cx="9" cy="65" rx="3" ry="5" transform="rotate(-30 9 65)" />
+                    </g>
+                    <g fill="#d4b96a" opacity="0.85">
+                        <ellipse cx="92" cy="35" rx="3" ry="5" transform="rotate(30 92 35)" />
+                        <ellipse cx="94" cy="45" rx="3" ry="5" transform="rotate(30 94 45)" />
+                        <ellipse cx="93" cy="55" rx="3" ry="5" transform="rotate(30 93 55)" />
+                        <ellipse cx="91" cy="65" rx="3" ry="5" transform="rotate(30 91 65)" />
+                    </g>
+                    <path d="M28 86 L50 94 L72 86 L68 91 L50 98 L32 91 Z" fill="url(#goldGrad)" opacity="0.7" />
+                </svg>
+                <div class="site-title-group">
+                    <h1 class="site-title">蛋仔医疗资源保障网</h1>
+                    <span class="site-subtitle">蛋仔公民医疗保障 · 官方服务平台</span>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="gov-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2 L14.5 8.5 L21 9 L16.5 13.5 L18 20 L12 16.5 L6 20 L7.5 13.5 L3 9 L9.5 8.5 Z" /></svg>
+                    <span>蛋仔医疗资源管理委员会 认证</span>
+                </div>
+                <button class="user-icon-btn" id="userIconBtn" title="登录/注册">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </button>
+                <button class="logout-btn" id="logoutBtn">退出登录</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <button class="nav-link active" data-page="home">首页</button>
+            <button class="nav-link" data-page="guide">办事指南</button>
+            <button class="nav-link" data-page="card">办卡</button>
+            <button class="nav-link" data-page="insurance">购买保险</button>
+            <button class="nav-link" data-page="verify">卡验证</button>
+            <button class="nav-link" data-page="profile">个人中心</button>
+            <button class="nav-link" data-page="admin">后台管理</button>
+        </div>
+    </nav>
+
+    <!-- 公告栏 -->
+    <div class="notice-bar">
+        <div class="notice-inner">
+            <span class="notice-label">公告</span>
+            <span class="notice-text">【重要通知】蛋仔医疗资源保障网全面升级，登录后可办理医保卡、查看余额与交易明细。卡内余额可通过蛋仔派对乐园币兑换获得，购买保险需使用卡内余额。如有疑问请联系邮箱dzcxyl120@qq.com。</span>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        <!-- 首页 -->
+        <section class="page active" id="page-home">
+            <div class="welcome-section">
+                <h2 style="color:var(--primary-dark); font-size:24px; letter-spacing:2px;">欢迎访问蛋仔医疗资源保障网</h2>
+                <p style="margin-top:10px; color:var(--text-mid);">医疗保障是蛋仔公民的重要福利，请注册并登录后使用各项服务。</p>
+                <button class="btn btn-primary" style="margin-top:15px;" id="homeLoginBtn">立即登录 / 注册</button>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
+                <div class="card" style="text-align:center; padding:20px;">
+                    <svg style="width:48px;height:48px;fill:var(--primary-mid);margin:0 auto 10px;" viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <h3 style="color:var(--primary-dark);">便捷注册</h3>
+                    <p style="font-size:13px;color:var(--text-light);">注册后即刻获得医保号码</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <svg style="width:48px;height:48px;fill:var(--primary-mid);margin:0 auto 10px;" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    <h3 style="color:var(--primary-dark);">全面保障</h3>
+                    <p style="font-size:13px;color:var(--text-light);">多种医疗保险可选</p>
+                </div>
+                <div class="card" style="text-align:center; padding:20px;">
+                    <svg style="width:48px;height:48px;fill:var(--primary-mid);margin:0 auto 10px;" viewBox="0 0 24 24"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5s-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8z"/></svg>
+                    <h3 style="color:var(--primary-dark);">安全可靠</h3>
+                    <p style="font-size:13px;color:var(--text-light);">政府级数据保障</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 办事指南 -->
+        <section class="page" id="page-guide">
+            <h2 class="section-title">办事指南</h2>
+            <p class="section-desc">蛋仔医疗资源保障网服务流程与常见问题说明。</p>
+            <div class="card">
+                <div class="card-header">
+                    <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    <span class="card-header-title">办理流程与注意事项</span>
+                </div>
+                <div class="card-body">
+                    <table class="info-table">
+                        <tr><th>办理步骤</th><td>第一步：注册医保账号（点击右上角用户图标或首页登录按钮）<br>第二步：获取系统分配的医保号码（格式：YB-XXXXXXXX）<br>第三步：登录系统后办理个人专属医保卡（AI自动生成卡号）<br>第四步：在个人中心查看余额与交易明细<br>第五步：在购买保险页面选择保险产品进行购买（需使用卡内余额）</td></tr>
+                        <tr><th>服务时间</th><td>周一至周五 9:00-17:00（法定节假日除外），线上平台24小时开放注册与查询服务。</td></tr>
+                        <tr><th>咨询邮箱</th><td>dzcxyl120@qq.com（蛋仔医保服务邮箱）</td></tr>
+                        <tr><th>办公地址</th><td>蛋仔市医疗保障局 · 蛋仔政务服务中心3楼医保窗口</td></tr>
+                        <tr><th>注意事项</th><td>1. 蛋仔编号由用户自定义，注册后不可变更。<br>2. 医保号码请妥善保管，查询与购买保险均需使用。<br>3. 保险购买后次日零时生效，保障期限为一年。<br>4. 账户余额可通过蛋仔派对乐园币兑换获得，本平台不提供充值入口。<br>5. 医保卡卡号由AI系统自动生成，具有唯一性和防伪性。<br>6. 登录使用蛋仔编号和密码。</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 办卡页面 -->
+        <section class="page" id="page-card">
+            <h2 class="section-title">医保卡办理</h2>
+            <p class="section-desc">登录后可生成您的专属医保卡，卡号由AI系统自动生成，支持自定义卡面和防伪图案，保存高清图片到相册。</p>
+            <div class="card">
+                <div class="card-header">
+                    <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
+                    <span class="card-header-title">卡面预览与定制</span>
+                </div>
+                <div class="card-body">
+                    <div id="cardLoginPrompt" style="display:none; background:#fff3e0; border:1px solid #ffb74d; border-radius:8px; padding:16px; margin-bottom:20px; color:#e65100;">
+                        <strong>请先登录</strong>，登录后方可办理医保卡。
+                        <button class="btn btn-sm btn-primary" style="margin-left:10px;" onclick="openModal()">立即登录</button>
+                    </div>
+                    <div id="cardContent" style="display:none;">
+                        <div class="card-preview-container">
+                            <canvas id="cardCanvas" width="1024" height="640"></canvas>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">卡面样式</label>
+                            <div class="style-options" id="styleOptions">
+                                <div class="style-option style1 selected" data-style="style1" title="经典蓝"></div>
+                                <div class="style-option style2" data-style="style2" title="尊贵金"></div>
+                                <div class="style-option style3" data-style="style3" title="生机绿"></div>
+                                <div class="style-option style4" data-style="style4" title="浪漫紫"></div>
+                                <div class="style-option style5" data-style="style5" title="中国红"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="customText">自定义文字（显示在卡面）</label>
+                            <input type="text" id="customText" class="form-input" placeholder="例如：健康快乐、专属卡" maxlength="20">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="useAntiFake" checked>
+                            <label for="useAntiFake">启用防伪图案（推荐）</label>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                            <button class="btn btn-gold" id="saveCardBtn">保存高清卡面到相册</button>
+                            <button class="btn btn-secondary" id="refreshCardBtn">重新绘制</button>
+                        </div>
+                        <div class="result-box" id="cardResult"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 购买保险 -->
+        <section class="page" id="page-insurance">
+            <h2 class="section-title">医疗保险购买</h2>
+            <p class="section-desc">登录并持有医保卡后，可使用卡内余额购买保险产品。卡内余额不足时，请前往蛋仔派对乐园使用乐园币兑换。</p>
+            <div class="card">
+                <div class="card-header">
+                    <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                    <span class="card-header-title">保险产品</span>
+                </div>
+                <div class="card-body">
+                    <div id="insuranceLoginPrompt" style="display:none; background:#fff3e0; border:1px solid #ffb74d; border-radius:8px; padding:16px; margin-bottom:20px; color:#e65100;">
+                        <strong>请先登录并办理医保卡</strong>，登录后方可购买保险。
+                        <button class="btn btn-sm btn-primary" style="margin-left:10px;" onclick="openModal()">立即登录</button>
+                    </div>
+                    <div id="insuranceContent" style="display:none;">
+                        <div class="insurance-grid">
+                            <div class="insurance-card" data-insurance="意外险" data-price="100">
+                                <svg class="insurance-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm1-11h-2v6h2V9zm0-4h-2v2h2V5z"/></svg>
+                                <div class="insurance-name">意外险</div>
+                                <div class="insurance-desc">日常意外伤害医疗保障</div>
+                                <div class="insurance-price">100<small>元/年</small></div>
+                            </div>
+                            <div class="insurance-card" data-insurance="食品安全险" data-price="80">
+                                <svg class="insurance-icon" viewBox="0 0 24 24"><path d="M17 1H7C5.9 1 5 1.9 5 3v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 20H7V3h10v18zm-4-12h-2v4h-4v2h4v4h2v-4h4v-2h-4V9z"/></svg>
+                                <div class="insurance-name">食品安全险</div>
+                                <div class="insurance-desc">食品质量问题健康保障</div>
+                                <div class="insurance-price">80<small>元/年</small></div>
+                            </div>
+                            <div class="insurance-card" data-insurance="重疾险" data-price="300">
+                                <svg class="insurance-icon" viewBox="0 0 24 24"><path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <div class="insurance-name">重疾险</div>
+                                <div class="insurance-desc">重大疾病治疗与康复保障</div>
+                                <div class="insurance-price">300<small>元/年</small></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:20px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                            <button class="btn btn-gold" id="confirmPurchaseBtn" disabled>确认购买</button>
+                            <button class="btn btn-secondary" id="cancelPurchaseBtn">取消选择</button>
+                            <span id="selectedInsuranceDisplay" style="color:var(--text-mid);"></span>
+                        </div>
+                    </div>
+                    <div class="result-box" id="purchaseResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 卡验证页面 -->
+        <section class="page" id="page-verify">
+            <h2 class="section-title">医保卡真伪验证</h2>
+            <p class="section-desc">输入卡号进行验证，确认卡片的真实有效性。</p>
+            <div class="card">
+                <div class="card-header">
+                    <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span class="card-header-title">卡号验证</span>
+                </div>
+                <div class="card-body">
+                    <form id="verifyForm" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="verifyCardNumber">卡号<span class="required">*</span></label>
+                            <input type="text" id="verifyCardNumber" class="form-input" placeholder="格式：DZ-XXXX-XXXX-XXXX-XXXX" autocomplete="off">
+                            <div class="form-error" id="verifyCardError">请输入有效卡号。</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">验证卡号</button>
+                    </form>
+                    <div class="result-box" id="verifyResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人中心 -->
+        <section class="page" id="page-profile">
+            <h2 class="section-title">个人中心</h2>
+            <p class="section-desc">查看账户余额、交易明细及已购保险。</p>
+            <div id="profileNotLoggedIn" class="card" style="padding:30px; text-align:center;">
+                <p style="color:var(--text-mid);">您尚未登录，请先登录后查看个人中心。</p>
+                <button class="btn btn-primary" onclick="openModal()">立即登录 / 注册</button>
+            </div>
+            <div id="profileContent" style="display:none;">
+                <div class="balance-box">
+                    <div class="balance-label">当前账户余额（元）</div>
+                    <div class="balance-amount" id="profileBalance">0.00</div>
+                    <p style="font-size:12px; color:#888; margin-top:5px;">卡内余额可通过蛋仔派对乐园币兑换获得，本平台不提供充值入口。</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
+                        <span class="card-header-title">交易明细</span>
+                    </div>
+                    <div class="card-body" style="padding:0; overflow-x:auto;">
+                        <table class="transaction-table">
+                            <thead><tr><th>日期</th><th>类型</th><th>说明</th><th>金额（元）</th></tr></thead>
+                            <tbody id="transactionBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+                        <span class="card-header-title">已购保险</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="purchasedInsurancesList"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <span class="card-header-title">账户信息</span>
+                    </div>
+                    <div class="card-body">
+                        <table class="info-table">
+                            <tr><th>蛋仔名</th><td id="profileName"></td></tr>
+                            <tr><th>蛋仔编号</th><td id="profileEggId"></td></tr>
+                            <tr><th>蛋仔主页</th><td id="profileHomepage"></td></tr>
+                            <tr><th>医保号码</th><td id="profileInsuranceNumber"></td></tr>
+                            <tr><th>注册日期</th><td id="profileRegistDate"></td></tr>
+                            <tr id="cardNumberRow" style="display:none;"><th>卡号(AI生成)</th><td id="profileCardNumber"></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 后台管理 -->
+        <section class="page" id="page-admin">
+            <h2 class="section-title">后台管理</h2>
+            <p class="section-desc">管理系统数据、配置对接数据码，并将各账号数据对接到其它网站。</p>
+
+            <!-- 管理员登录 -->
+            <div id="adminGate" class="card" style="max-width:460px;margin:0 auto;">
+                <div class="card-header">
+                    <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+                    <span class="card-header-title" id="adminGateTitle">管理员登录</span>
+                </div>
+                <div class="card-body">
+                    <div style="font-size:13px;color:var(--text-light);margin-bottom:14px;">
+                        请输入管理员账号与密码进入后台管理，账号由系统统一分配，不支持自行注册。
+                    </div>
+                    <form id="adminAuthForm" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="adminUserInput">管理员账号</label>
+                            <input type="text" id="adminUserInput" class="form-input" placeholder="请输入管理员账号" autocomplete="off" maxlength="40">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="adminPassInput">密码</label>
+                            <input type="password" id="adminPassInput" class="form-input" placeholder="请输入密码" autocomplete="off">
+                            <div class="form-error" id="adminPassError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="adminAuthSubmit">登录</button>
+                        <div class="result-box" id="adminAuthResult"></div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="adminContent" style="display:none;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+                    <span style="font-size:14px;color:var(--text-mid);">当前管理员：<b id="adminUserLabel" style="color:var(--primary-dark);"></b></span>
+                    <button class="btn btn-secondary btn-sm" id="adminLogoutBtn" style="margin-left:auto;">退出后台</button>
+                </div>
+                <!-- 账号数据总览 -->
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <span class="card-header-title">账号数据总览</span>
+                        <button class="btn btn-secondary btn-sm" id="refreshAccountsBtn" style="margin-left:auto;">刷新</button>
+                    </div>
+                    <div class="card-body" style="padding:0; overflow-x:auto;">
+                        <table class="transaction-table">
+                            <thead><tr><th>蛋仔名</th><th>蛋仔编号</th><th>医保号码</th><th>卡号</th><th>余额(元)</th><th>已购保险</th><th>注册日期</th></tr></thead>
+                            <tbody id="adminAccountsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 数据储存 -->
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 12h2v5H7zm4-3h2v8h-2zm4 6h2v2h-2z"/></svg>
+                        <span class="card-header-title">数据储存</span>
+                    </div>
+                    <div class="card-body">
+                        <form id="storeForm" novalidate>
+                            <div class="form-group">
+                                <label class="form-label" for="storeKey">数据名称<span class="required">*</span></label>
+                                <input type="text" id="storeKey" class="form-input" placeholder="例如：系统公告、配置项A" maxlength="40" autocomplete="off">
+                                <div class="form-error" id="storeKeyError">请输入数据名称。</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="storeValue">数据内容</label>
+                                <textarea id="storeValue" class="form-input" rows="3" placeholder="填写要存储的数据内容"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">保存数据</button>
+                            <div class="result-box" id="storeResult"></div>
+                        </form>
+                        <div id="storeList" style="margin-top:16px;"></div>
+                    </div>
+                </div>
+
+                <!-- 对接数据码 -->
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span class="card-header-title">对接数据码</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size:13px;color:var(--text-light);margin-bottom:12px;">对接数据码用于校验其它网站的身份，请妥善保管。其它网站需同时持有<b>对接数据码</b>与<b>对接数据包</b>才能读取账号数据。</p>
+                        <div class="form-group">
+                            <label class="form-label" for="dataCodeInput">对接数据码</label>
+                            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                                <input type="text" id="dataCodeInput" class="form-input" placeholder="点击生成或手动输入对接数据码" style="flex:1;min-width:220px;" autocomplete="off">
+                                <button class="btn btn-secondary" id="genCodeBtn">生成随机码</button>
+                                <button class="btn btn-secondary" id="copyCodeBtn">复制</button>
+                                <button class="btn btn-gold" id="saveCodeBtn">保存数据码</button>
+                            </div>
+                        </div>
+                        <div class="result-box" id="codeResult"></div>
+                    </div>
+                </div>
+
+                <!-- 网站对接 -->
+                <div class="card">
+                    <div class="card-header">
+                        <svg class="card-header-icon" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span class="card-header-title">网站对接（导出账号数据）</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size:13px;color:var(--text-light);margin-bottom:12px;">点击生成对接数据包，将其与对接数据码一同提供给目标网站。下方脚本供目标网站嵌入使用，可读取账号数据。</p>
+                        <button class="btn btn-gold" id="genPackageBtn">生成对接数据包</button>
+                        <button class="btn btn-secondary" id="exportJsonBtn">导出账号数据 JSON</button>
+                        <div class="form-group" style="margin-top:16px;">
+                            <label class="form-label" for="packageOutput">对接数据包（复制后提供给其它网站）</label>
+                            <textarea id="packageOutput" class="form-input" rows="4" readonly style="font-family:monospace;font-size:12px;"></textarea>
+                            <button class="btn btn-secondary btn-sm" id="copyPackageBtn" style="margin-top:8px;">复制数据包</button>
+                        </div>
+                        <div class="form-group" style="margin-top:12px;">
+                            <label class="form-label" for="connectSnippet">目标网站对接脚本（嵌入目标网站）</label>
+                            <textarea id="connectSnippet" class="form-input" rows="12" readonly style="font-family:monospace;font-size:12px;"></textarea>
+                            <button class="btn btn-secondary btn-sm" id="copySnippetBtn" style="margin-top:8px;">复制脚本</button>
+                        </div>
+                        <div class="result-box" id="packageResult"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 登录/注册模态框 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3 class="modal-title">登录 / 注册</h3>
+            <div class="modal-tabs">
+                <button class="modal-tab active" id="tabLogin">登录</button>
+                <button class="modal-tab" id="tabRegister">注册</button>
+            </div>
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="loginEggId">蛋仔编号<span class="required">*</span></label>
+                    <input type="text" id="loginEggId" class="form-input" placeholder="请输入蛋仔编号" autocomplete="off">
+                    <div class="form-error" id="loginEggIdError">请输入蛋仔编号。</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">密码<span class="required">*</span></label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="请输入密码" autocomplete="off">
+                    <div class="form-error" id="loginPasswordError">密码不能为空。</div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">登录</button>
+                <div class="result-box" id="loginResult"></div>
+            </form>
+            <form id="registerForm" style="display:none;" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="regName">蛋仔名<span class="required">*</span></label>
+                    <input type="text" id="regName" class="form-input" placeholder="2-20个字符" autocomplete="off">
+                    <div class="form-error" id="regNameError">请输入有效的蛋仔名（2-20个字符）。</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regId">蛋仔编号<span class="required">*</span></label>
+                    <input type="text" id="regId" class="form-input" placeholder="请输入您的蛋仔编号（任意字符）" autocomplete="off">
+                    <div class="form-hint">自定义编号，用于登录</div>
+                    <div class="form-error" id="regIdError">请输入蛋仔编号。</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regHomepage">蛋仔主页<span class="required">*</span></label>
+                    <input type="text" id="regHomepage" class="form-input" placeholder="链接或标识" autocomplete="off">
+                    <div class="form-error" id="regHomepageError">请填写蛋仔主页信息。</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regPassword">密码<span class="required">*</span></label>
+                    <input type="password" id="regPassword" class="form-input" placeholder="至少6位" autocomplete="off">
+                    <div class="form-error" id="regPasswordError">密码至少6位。</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regCaptcha">验证码<span class="required">*</span></label>
+                    <div class="captcha-wrapper">
+                        <div class="captcha-display" id="captchaDisplay"></div>
+                        <button type="button" class="captcha-refresh-btn" id="captchaRefreshBtn">刷新</button>
+                        <input type="text" id="regCaptcha" class="form-input" placeholder="输入验证码" maxlength="4" style="flex:1; min-width:100px;">
+                    </div>
+                    <div class="form-error" id="regCaptchaError">验证码错误。</div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">注册</button>
+                <div class="result-box" id="registerResult"></div>
+            </form>
+            <div class="modal-footer">
+                <button class="skip-link" id="skipBtn">跳过，暂不登录</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a data-page="home">首页</a><span class="footer-divider">|</span>
+                <a data-page="guide">办事指南</a><span class="footer-divider">|</span>
+                <a data-page="card">办卡</a><span class="footer-divider">|</span>
+                <a data-page="insurance">购买保险</a><span class="footer-divider">|</span>
+                <a data-page="verify">卡验证</a><span class="footer-divider">|</span>
+                <a data-page="profile">个人中心</a><span class="footer-divider">|</span>
+                <a data-page="admin">后台管理</a>
+            </div>
+            <p>蛋仔医疗资源保障网 · 蛋仔医疗资源管理委员会 主办</p>
+            <p style="font-size:12px; margin-top:4px; color:#8ab4d8;">服务邮箱：dzcxyl120@qq.com</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const STORAGE_KEY = 'danziMedicalInsuranceData_v8';
+            const SESSION_KEY = 'danziCurrentUserInsuranceNumber';
+            const CAPTCHA_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+            // 数据管理
+            function getStoredData() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && typeof parsed === 'object' && Array.isArray(parsed.users)) return parsed;
+                    }
+                } catch (e) {}
+                return { users: [] };
+            }
+            function saveStoredData(data) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {} }
+
+            function generateInsuranceNumber() { return 'YB-' + String(Math.floor(10000000 + Math.random() * 90000000)); }
+            function generateCardNumber() {
+                const part1 = String(Math.floor(1000 + Math.random() * 9000));
+                const part2 = String(Math.floor(1000 + Math.random() * 9000));
+                const part3 = String(Math.floor(1000 + Math.random() * 9000));
+                const part4 = String(Math.floor(1000 + Math.random() * 9000));
+                return `DZ-${part1}-${part2}-${part3}-${part4}`;
+            }
+            function generateCaptcha() { let c=''; for(let i=0;i<4;i++) c+=CAPTCHA_CHARS[Math.floor(Math.random()*CAPTCHA_CHARS.length)]; return c; }
+            function formatDate(d){ d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+            function isValidInsuranceNumber(num){ return /^YB-\d{8}$/.test(num); }
+            function isValidCardNumber(card){ return /^DZ-\d{4}-\d{4}-\d{4}-\d{4}$/.test(card); }
+
+            let currentCaptcha = '';
+            let currentUser = null;
+            let selectedInsurance = null;
+            let cardStyle = 'style1';
+
+            // DOM 元素
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link[data-page]');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const userIconBtn = document.getElementById('userIconBtn');
+            const homeLoginBtn = document.getElementById('homeLoginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const modalClose = document.getElementById('modalClose');
+            const skipBtn = document.getElementById('skipBtn');
+            const tabLogin = document.getElementById('tabLogin');
+            const tabRegister = document.getElementById('tabRegister');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const loginEggId = document.getElementById('loginEggId');
+            const loginPassword = document.getElementById('loginPassword');
+            const loginEggIdError = document.getElementById('loginEggIdError');
+            const loginPasswordError = document.getElementById('loginPasswordError');
+            const loginResult = document.getElementById('loginResult');
+            const registerResult = document.getElementById('registerResult');
+            const regNameInput = document.getElementById('regName');
+            const regIdInput = document.getElementById('regId');
+            const regHomepageInput = document.getElementById('regHomepage');
+            const regPasswordInput = document.getElementById('regPassword');
+            const regCaptchaInput = document.getElementById('regCaptcha');
+            const captchaDisplay = document.getElementById('captchaDisplay');
+            const captchaRefreshBtn = document.getElementById('captchaRefreshBtn');
+            const regNameError = document.getElementById('regNameError');
+            const regIdError = document.getElementById('regIdError');
+            const regHomepageError = document.getElementById('regHomepageError');
+            const regPasswordError = document.getElementById('regPasswordError');
+            const regCaptchaError = document.getElementById('regCaptchaError');
+            const insuranceLoginPrompt = document.getElementById('insuranceLoginPrompt');
+            const insuranceContent = document.getElementById('insuranceContent');
+            const insuranceCards = document.querySelectorAll('.insurance-card');
+            const confirmPurchaseBtn = document.getElementById('confirmPurchaseBtn');
+            const cancelPurchaseBtn = document.getElementById('cancelPurchaseBtn');
+            const selectedInsuranceDisplay = document.getElementById('selectedInsuranceDisplay');
+            const purchaseResult = document.getElementById('purchaseResult');
+            const profileNotLoggedIn = document.getElementById('profileNotLoggedIn');
+            const profileContent = document.getElementById('profileContent');
+            const profileBalance = document.getElementById('profileBalance');
+            const transactionBody = document.getElementById('transactionBody');
+            const purchasedInsurancesList = document.getElementById('purchasedInsurancesList');
+            const profileName = document.getElementById('profileName');
+            const profileEggId = document.getElementById('profileEggId');
+            const profileHomepage = document.getElementById('profileHomepage');
+            const profileInsuranceNumber = document.getElementById('profileInsuranceNumber');
+            const profileRegistDate = document.getElementById('profileRegistDate');
+            const profileCardNumber = document.getElementById('profileCardNumber');
+            const cardNumberRow = document.getElementById('cardNumberRow');
+
+            // 办卡元素
+            const cardLoginPrompt = document.getElementById('cardLoginPrompt');
+            const cardContent = document.getElementById('cardContent');
+            const cardCanvas = document.getElementById('cardCanvas');
+            const styleOptions = document.querySelectorAll('.style-option');
+            const customTextInput = document.getElementById('customText');
+            const useAntiFakeCheckbox = document.getElementById('useAntiFake');
+            const saveCardBtn = document.getElementById('saveCardBtn');
+            const refreshCardBtn = document.getElementById('refreshCardBtn');
+            const cardResult = document.getElementById('cardResult');
+
+            // 卡验证元素
+            const verifyForm = document.getElementById('verifyForm');
+            const verifyCardNumber = document.getElementById('verifyCardNumber');
+            const verifyCardError = document.getElementById('verifyCardError');
+            const verifyResult = document.getElementById('verifyResult');
+
+            // 后台管理元素
+            const adminGate = document.getElementById('adminGate');
+            const adminGateTitle = document.getElementById('adminGateTitle');
+            const adminAuthForm = document.getElementById('adminAuthForm');
+            const adminUserInput = document.getElementById('adminUserInput');
+            const adminPassInput = document.getElementById('adminPassInput');
+            const adminPassError = document.getElementById('adminPassError');
+            const adminAuthSubmit = document.getElementById('adminAuthSubmit');
+            const adminAuthResult = document.getElementById('adminAuthResult');
+            const adminContent = document.getElementById('adminContent');
+            const adminUserLabel = document.getElementById('adminUserLabel');
+            const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+            const adminAccountsBody = document.getElementById('adminAccountsBody');
+            const refreshAccountsBtn = document.getElementById('refreshAccountsBtn');
+            const storeForm = document.getElementById('storeForm');
+            const storeKeyInput = document.getElementById('storeKey');
+            const storeValueInput = document.getElementById('storeValue');
+            const storeKeyError = document.getElementById('storeKeyError');
+            const storeResult = document.getElementById('storeResult');
+            const storeList = document.getElementById('storeList');
+            const dataCodeInput = document.getElementById('dataCodeInput');
+            const genCodeBtn = document.getElementById('genCodeBtn');
+            const copyCodeBtn = document.getElementById('copyCodeBtn');
+            const saveCodeBtn = document.getElementById('saveCodeBtn');
+            const codeResult = document.getElementById('codeResult');
+            const genPackageBtn = document.getElementById('genPackageBtn');
+            const exportJsonBtn = document.getElementById('exportJsonBtn');
+            const packageOutput = document.getElementById('packageOutput');
+            const copyPackageBtn = document.getElementById('copyPackageBtn');
+            const connectSnippet = document.getElementById('connectSnippet');
+            const copySnippetBtn = document.getElementById('copySnippetBtn');
+            const packageResult = document.getElementById('packageResult');
+
+            // 页面切换
+            function showPage(pageId) {
+                pages.forEach(p => p.classList.remove('active'));
+                const target = document.getElementById('page-' + pageId);
+                if (target) target.classList.add('active');
+                navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-page') === pageId));
+                if (pageId === 'insurance') updateInsurancePageVisibility();
+                if (pageId === 'profile') updateProfilePage();
+                if (pageId === 'card') updateCardPageVisibility();
+                if (pageId === 'admin') updateAdminPage();
+            }
+            navLinks.forEach(link => link.addEventListener('click', function() { showPage(this.getAttribute('data-page')); }));
+            document.querySelectorAll('.footer-links a').forEach(link => {
+                link.addEventListener('click', function() { showPage(this.getAttribute('data-page')); });
+            });
+
+            function openModal() { modalOverlay.classList.add('show'); }
+            function closeModal() { modalOverlay.classList.remove('show'); }
+            userIconBtn.addEventListener('click', function() {
+                if (currentUser) {
+                    if (confirm('确定要退出登录吗？')) {
+                        logout();
+                    }
+                } else {
+                    openModal();
+                }
+            });
+            homeLoginBtn.addEventListener('click', openModal);
+            modalClose.addEventListener('click', closeModal);
+            skipBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', function(e) { if(e.target === modalOverlay) closeModal(); });
+            logoutBtn.addEventListener('click', logout);
+
+            function logout() {
+                currentUser = null;
+                localStorage.removeItem(SESSION_KEY);
+                updateAuthUI();
+                showPage('home');
+                hideResultBox(loginResult);
+                hideResultBox(registerResult);
+                hideResultBox(purchaseResult);
+                selectedInsurance = null;
+                updateInsuranceSelectionUI();
+            }
+
+            tabLogin.addEventListener('click', function() {
+                tabLogin.classList.add('active'); tabRegister.classList.remove('active');
+                loginForm.style.display = 'block'; registerForm.style.display = 'none';
+                hideResultBox(loginResult); hideResultBox(registerResult);
+            });
+            tabRegister.addEventListener('click', function() {
+                tabRegister.classList.add('active'); tabLogin.classList.remove('active');
+                registerForm.style.display = 'block'; loginForm.style.display = 'none';
+                hideResultBox(loginResult); hideResultBox(registerResult);
+                refreshCaptcha();
+            });
+
+            function refreshCaptcha() {
+                currentCaptcha = generateCaptcha();
+                captchaDisplay.textContent = currentCaptcha;
+                regCaptchaInput.value = '';
+                regCaptchaError.classList.remove('show');
+                regCaptchaInput.classList.remove('error');
+            }
+            captchaDisplay.addEventListener('click', refreshCaptcha);
+            captchaRefreshBtn.addEventListener('click', refreshCaptcha);
+
+            function showError(input, errorEl) { input.classList.add('error'); errorEl.classList.add('show'); }
+            function clearError(input, errorEl) { input.classList.remove('error'); errorEl.classList.remove('show'); }
+            function showResultBox(el, type, html) { el.innerHTML = html; el.className = 'result-box ' + type + ' show'; }
+            function hideResultBox(el) { el.className = 'result-box'; el.innerHTML = ''; }
+
+            // 注册
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                const name = regNameInput.value.trim();
+                if(name.length < 2 || name.length > 20) { showError(regNameInput, regNameError); isValid=false; } else clearError(regNameInput, regNameError);
+                const eggId = regIdInput.value.trim();
+                if(!eggId || eggId.length === 0) { showError(regIdInput, regIdError); isValid=false; } else clearError(regIdInput, regIdError);
+                const homepage = regHomepageInput.value.trim();
+                if(homepage.length < 3) { showError(regHomepageInput, regHomepageError); isValid=false; } else clearError(regHomepageInput, regHomepageError);
+                const password = regPasswordInput.value;
+                if(password.length < 6) { showError(regPasswordInput, regPasswordError); isValid=false; } else clearError(regPasswordInput, regPasswordError);
+                const captchaInput = regCaptchaInput.value.trim().toUpperCase();
+                if(captchaInput !== currentCaptcha) { showError(regCaptchaInput, regCaptchaError); isValid=false; } else clearError(regCaptchaInput, regCaptchaError);
+                if(!isValid) { showResultBox(registerResult, 'error', '注册失败，请检查表单。'); return; }
+                const data = getStoredData();
+                if(data.users.some(u => u.eggId === eggId)) { showResultBox(registerResult, 'error', '蛋仔编号已存在，请更换。'); return; }
+                let insuranceNumber = generateInsuranceNumber();
+                while(data.users.some(u => u.insuranceNumber === insuranceNumber)) insuranceNumber = generateInsuranceNumber();
+                const newUser = {
+                    name, eggId, homepage, password,
+                    insuranceNumber, registDate: formatDate(new Date()),
+                    balance: 0,  // 初始余额为0
+                    insurances: [],
+                    transactions: [],  // 无初始交易
+                    cardNumber: ''
+                };
+                data.users.push(newUser);
+                saveStoredData(data);
+                currentUser = newUser;
+                localStorage.setItem(SESSION_KEY, currentUser.insuranceNumber);
+                updateAuthUI();
+                showResultBox(registerResult, 'success', `注册成功！医保号码为 <strong>${insuranceNumber}</strong>，初始余额0元。请前往办卡页面定制您的专属医保卡。`);
+                regNameInput.value=''; regIdInput.value=''; regHomepageInput.value=''; regPasswordInput.value='';
+                refreshCaptcha();
+                setTimeout(() => { closeModal(); showPage('card'); }, 1000);
+            });
+
+            // 登录
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const eggId = loginEggId.value.trim();
+                const pwd = loginPassword.value;
+                if(!eggId || eggId.length === 0) { showError(loginEggId, loginEggIdError); return; } else clearError(loginEggId, loginEggIdError);
+                if(!pwd) { showError(loginPassword, loginPasswordError); return; } else clearError(loginPassword, loginPasswordError);
+                const data = getStoredData();
+                const user = data.users.find(u => u.eggId === eggId && u.password === pwd);
+                if(!user) { showResultBox(loginResult, 'error', '蛋仔编号或密码错误。'); return; }
+                currentUser = user;
+                localStorage.setItem(SESSION_KEY, currentUser.insuranceNumber);
+                updateAuthUI();
+                showResultBox(loginResult, 'success', '登录成功！');
+                setTimeout(() => { closeModal(); showPage('profile'); }, 500);
+            });
+
+            // 更新UI
+            function updateAuthUI() {
+                const loggedIn = !!currentUser;
+                logoutBtn.style.display = loggedIn ? 'inline-block' : 'none';
+                insuranceLoginPrompt.style.display = loggedIn ? 'none' : 'block';
+                insuranceContent.style.display = loggedIn ? 'block' : 'none';
+                cardLoginPrompt.style.display = loggedIn ? 'none' : 'block';
+                cardContent.style.display = loggedIn ? 'block' : 'none';
+                if(loggedIn) {
+                    const data = getStoredData();
+                    const user = data.users.find(u => u.insuranceNumber === currentUser.insuranceNumber);
+                    if(user) {
+                        currentUser = user;
+                        profileName.textContent = user.name;
+                        profileEggId.textContent = user.eggId;
+                        profileHomepage.textContent = user.homepage;
+                        profileInsuranceNumber.textContent = user.insuranceNumber;
+                        profileRegistDate.textContent = user.registDate;
+                        profileBalance.textContent = user.balance.toFixed(2);
+                        if(user.cardNumber) {
+                            profileCardNumber.textContent = user.cardNumber;
+                            cardNumberRow.style.display = '';
+                        } else {
+                            cardNumberRow.style.display = 'none';
+                        }
+                        renderTransactions(user);
+                        renderPurchasedInsurances(user);
+                        drawCard();
+                    }
+                }
+                if(document.getElementById('page-profile').classList.contains('active')) updateProfilePage();
+                if(document.getElementById('page-insurance').classList.contains('active')) updateInsurancePageVisibility();
+                if(document.getElementById('page-card').classList.contains('active')) updateCardPageVisibility();
+            }
+
+            function updateInsurancePageVisibility() {
+                const loggedIn = !!currentUser;
+                if (loggedIn && currentUser.cardNumber) {
+                    insuranceLoginPrompt.style.display = 'none';
+                    insuranceContent.style.display = 'block';
+                } else {
+                    insuranceLoginPrompt.style.display = 'block';
+                    insuranceContent.style.display = 'none';
+                    if (loggedIn && !currentUser.cardNumber) {
+                        insuranceLoginPrompt.innerHTML = '<strong>您尚未办理医保卡</strong>，请先前往办卡页面办理。<button class="btn btn-sm btn-primary" style="margin-left:10px;" onclick="showPage(\'card\')">去办卡</button>';
+                    } else if (!loggedIn) {
+                        insuranceLoginPrompt.innerHTML = '<strong>请先登录并办理医保卡</strong>，登录后方可购买保险。<button class="btn btn-sm btn-primary" style="margin-left:10px;" onclick="openModal()">立即登录</button>';
+                    }
+                }
+            }
+            function updateProfilePage() {
+                if(!currentUser) {
+                    profileNotLoggedIn.style.display = 'block';
+                    profileContent.style.display = 'none';
+                } else {
+                    profileNotLoggedIn.style.display = 'none';
+                    profileContent.style.display = 'block';
+                    const data = getStoredData();
+                    const user = data.users.find(u => u.insuranceNumber === currentUser.insuranceNumber);
+                    if(user) {
+                        currentUser = user;
+                        profileName.textContent = user.name;
+                        profileEggId.textContent = user.eggId;
+                        profileHomepage.textContent = user.homepage;
+                        profileInsuranceNumber.textContent = user.insuranceNumber;
+                        profileRegistDate.textContent = user.registDate;
+                        profileBalance.textContent = user.balance.toFixed(2);
+                        if(user.cardNumber) {
+                            profileCardNumber.textContent = user.cardNumber;
+                            cardNumberRow.style.display = '';
+                        } else {
+                            cardNumberRow.style.display = 'none';
+                        }
+                        renderTransactions(user);
+                        renderPurchasedInsurances(user);
+                    }
+                }
+            }
+            function updateCardPageVisibility() {
+                const loggedIn = !!currentUser;
+                cardLoginPrompt.style.display = loggedIn ? 'none' : 'block';
+                cardContent.style.display = loggedIn ? 'block' : 'none';
+                if(loggedIn) drawCard();
+            }
+            function renderTransactions(user) {
+                transactionBody.innerHTML = '';
+                if(!user.transactions || user.transactions.length === 0) {
+                    transactionBody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#888;">暂无交易记录</td></tr>';
+                    return;
+                }
+                user.transactions.slice().reverse().forEach(t => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${t.date}</td><td>${t.type}</td><td>${t.description}</td><td class="${t.amount >= 0 ? 'income' : 'expense'}">${t.amount >= 0 ? '+' : ''}${t.amount.toFixed(2)}</td>`;
+                    transactionBody.appendChild(tr);
+                });
+            }
+            function renderPurchasedInsurances(user) {
+                purchasedInsurancesList.innerHTML = '';
+                if(!user.insurances || user.insurances.length === 0) {
+                    purchasedInsurancesList.innerHTML = '<span style="color:#888;">暂无已购保险</span>';
+                    return;
+                }
+                user.insurances.forEach((ins, index) => {
+                    const tag = document.createElement('span');
+                    tag.className = 'insurance-tag';
+                    tag.style.display = 'inline-block';
+                    tag.style.marginBottom = '8px';
+                    tag.innerHTML = `${ins.type}（${ins.purchaseDate}购买，至${ins.expiryDate}）`;
+                    
+                    const refundBtn = document.createElement('button');
+                    refundBtn.className = 'btn btn-secondary btn-sm';
+                    refundBtn.textContent = '退订';
+                    refundBtn.style.marginLeft = '8px';
+                    refundBtn.addEventListener('click', function() {
+                        refundInsurance(ins, index);
+                    });
+                    tag.appendChild(refundBtn);
+                    purchasedInsurancesList.appendChild(tag);
+                });
+            }
+
+            // 退订保险
+            function refundInsurance(insurance, index) {
+                if(!currentUser) return;
+                const data = getStoredData();
+                const user = data.users.find(u => u.insuranceNumber === currentUser.insuranceNumber);
+                if(!user) return;
+                // 查找保险在用户数组中的位置（可能存在多个同名？目前设计每种只能买一次）
+                const insIndex = user.insurances.findIndex(i => i === insurance);
+                if(insIndex === -1) return;
+                
+                // 退还全部费用（按实际购买价格）
+                user.balance += insurance.price;
+                // 从保险列表中移除
+                user.insurances.splice(insIndex, 1);
+                // 添加交易记录
+                user.transactions.push({
+                    date: formatDate(new Date()),
+                    type: '收入',
+                    description: `退订${insurance.type}退款`,
+                    amount: insurance.price
+                });
+                saveStoredData(data);
+                currentUser = user;
+                updateAuthUI();
+                showResultBox(purchaseResult, 'success', `退订成功！${insurance.type}已退订，退款${insurance.price}元已退回卡内余额。`);
+                // 刷新个人中心
+                updateProfilePage();
+            }
+
+            // 保险购买逻辑
+            insuranceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    if(!currentUser) { openModal(); return; }
+                    if(!currentUser.cardNumber) { alert('请先办理医保卡'); showPage('card'); return; }
+                    const type = this.getAttribute('data-insurance');
+                    if(selectedInsurance === type) selectedInsurance = null;
+                    else selectedInsurance = type;
+                    updateInsuranceSelectionUI();
+                });
+            });
+            function updateInsuranceSelectionUI() {
+                insuranceCards.forEach(card => {
+                    const type = card.getAttribute('data-insurance');
+                    if(selectedInsurance === type) card.classList.add('selected');
+                    else card.classList.remove('selected');
+                });
+                if(selectedInsurance) { confirmPurchaseBtn.disabled = false; selectedInsuranceDisplay.textContent = `已选择：${selectedInsurance}`; }
+                else { confirmPurchaseBtn.disabled = true; selectedInsuranceDisplay.textContent = ''; }
+            }
+            cancelPurchaseBtn.addEventListener('click', function() { selectedInsurance = null; updateInsuranceSelectionUI(); hideResultBox(purchaseResult); });
+            confirmPurchaseBtn.addEventListener('click', function() {
+                if(!currentUser || !selectedInsurance) return;
+                if(!currentUser.cardNumber) { alert('请先办理医保卡'); showPage('card'); return; }
+                const data = getStoredData();
+                const user = data.users.find(u => u.insuranceNumber === currentUser.insuranceNumber);
+                if(!user) return;
+                const price = selectedInsurance === '意外险' ? 100 : (selectedInsurance === '食品安全险' ? 80 : 300);
+                if(user.balance < price) {
+                    showResultBox(purchaseResult, 'error', '卡内余额不足，请前往蛋仔派对乐园使用乐园币购买。');
+                    return;
+                }
+                if(user.insurances.some(i => i.type === selectedInsurance)) { showResultBox(purchaseResult, 'error', '您已购买过该保险。'); return; }
+                user.balance -= price;
+                user.insurances.push({ type: selectedInsurance, price, purchaseDate: formatDate(new Date()), effectiveDate: formatDate(new Date(Date.now()+86400000)), expiryDate: formatDate(new Date(Date.now()+365*86400000)) });
+                user.transactions.push({ date: formatDate(new Date()), type: '支出', description: `购买${selectedInsurance}`, amount: -price });
+                saveStoredData(data);
+                currentUser = user;
+                updateAuthUI();
+                showResultBox(purchaseResult, 'success', `购买成功！${selectedInsurance}已生效，卡内余额扣款${price}元。`);
+                selectedInsurance = null;
+                updateInsuranceSelectionUI();
+            });
+
+            // 办卡功能
+            styleOptions.forEach(opt => {
+                opt.addEventListener('click', function() {
+                    styleOptions.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    cardStyle = this.getAttribute('data-style');
+                    drawCard();
+                });
+            });
+            customTextInput.addEventListener('input', drawCard);
+            useAntiFakeCheckbox.addEventListener('change', drawCard);
+            refreshCardBtn.addEventListener('click', drawCard);
+
+            function drawCard() {
+                if(!currentUser) return;
+                if(!currentUser.cardNumber) {
+                    const data = getStoredData();
+                    const user = data.users.find(u => u.insuranceNumber === currentUser.insuranceNumber);
+                    if(!user.cardNumber) {
+                        let cardNum = generateCardNumber();
+                        while(data.users.some(u => u.cardNumber === cardNum)) cardNum = generateCardNumber();
+                        user.cardNumber = cardNum;
+                        saveStoredData(data);
+                        currentUser = user;
+                        updateAuthUI();
+                    } else {
+                        currentUser = user;
+                    }
+                }
+                const canvas = cardCanvas;
+                const ctx = canvas.getContext('2d');
+                const w = 1024, h = 640;
+                canvas.width = w; canvas.height = h;
+                let bgGrad;
+                switch(cardStyle) {
+                    case 'style1': bgGrad = ctx.createLinearGradient(0,0,w,h); bgGrad.addColorStop(0,'#1a3c6e'); bgGrad.addColorStop(1,'#2a5a9c'); break;
+                    case 'style2': bgGrad = ctx.createLinearGradient(0,0,w,h); bgGrad.addColorStop(0,'#b8963e'); bgGrad.addColorStop(1,'#d4b96a'); break;
+                    case 'style3': bgGrad = ctx.createLinearGradient(0,0,w,h); bgGrad.addColorStop(0,'#2e7d32'); bgGrad.addColorStop(1,'#4caf50'); break;
+                    case 'style4': bgGrad = ctx.createLinearGradient(0,0,w,h); bgGrad.addColorStop(0,'#6a1b9a'); bgGrad.addColorStop(1,'#ab47bc'); break;
+                    case 'style5': bgGrad = ctx.createLinearGradient(0,0,w,h); bgGrad.addColorStop(0,'#b71c1c'); bgGrad.addColorStop(1,'#ef5350'); break;
+                    default: bgGrad = ctx.createLinearGradient(0,0,w,h); bgGrad.addColorStop(0,'#1a3c6e'); bgGrad.addColorStop(1,'#2a5a9c');
+                }
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0,0,w,h);
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 8;
+                ctx.strokeRect(20,20,w-40,h-40);
+                if(useAntiFakeCheckbox.checked) {
+                    ctx.save();
+                    ctx.globalAlpha = 0.15;
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 1;
+                    for(let i=0;i<50;i++) {
+                        ctx.beginPath();
+                        ctx.moveTo(Math.random()*w, Math.random()*h);
+                        ctx.quadraticCurveTo(Math.random()*w, Math.random()*h, Math.random()*w, Math.random()*h);
+                        ctx.stroke();
+                    }
+                    ctx.font = '10px Arial';
+                    ctx.fillStyle = '#ffffff';
+                    for(let i=0;i<200;i++) {
+                        ctx.fillText('蛋仔保障', Math.random()*w, Math.random()*h);
+                    }
+                    ctx.restore();
+                }
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 42px "SimHei", "Microsoft YaHei", sans-serif';
+                ctx.fillText('蛋仔医疗资源保障卡', 60, 80);
+                ctx.font = '24px "SimHei", "Microsoft YaHei", sans-serif';
+                ctx.fillText('蛋仔名：' + currentUser.name, 60, 160);
+                ctx.fillText('医保号码：' + currentUser.insuranceNumber, 60, 210);
+                ctx.fillText('蛋仔编号：' + currentUser.eggId, 60, 260);
+                ctx.fillText('注册日期：' + currentUser.registDate, 60, 310);
+                ctx.font = 'bold 28px "Courier New", monospace';
+                ctx.fillText('卡号(AI)：' + currentUser.cardNumber, 60, 380);
+                const custom = customTextInput.value.trim();
+                if(custom) {
+                    ctx.font = '22px "SimHei", "Microsoft YaHei", sans-serif';
+                    ctx.fillText('寄语：' + custom, 60, 440);
+                }
+                ctx.font = '18px "SimHei", "Microsoft YaHei", sans-serif';
+                ctx.fillText('蛋仔医疗资源管理委员会 监制', 60, 540);
+                ctx.font = '14px Arial';
+                ctx.fillText('服务邮箱：3940272622@qq.com', w - 220, 540);
+                ctx.fillText('服务邮箱：dzcxyl120@qq.com', w - 320, 560);
+                ctx.fillStyle = '#ffd700';
+                ctx.beginPath();
+                ctx.arc(w-80, 80, 30, 0, Math.PI*2);
+                ctx.fill();
+                ctx.fillStyle = '#1a3c6e';
+                ctx.font = 'bold 24px Arial';
+                ctx.fillText('★', w-95, 90);
+            }
+
+            saveCardBtn.addEventListener('click', function() {
+                if(!currentUser) { openModal(); return; }
+                drawCard();
+                const canvas = cardCanvas;
+                const link = document.createElement('a');
+                link.download = '蛋仔医保卡_' + currentUser.name + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showResultBox(cardResult, 'success', '高清卡面已生成并开始下载，请查看手机相册。若未自动保存，可长按上方预览图保存。');
+            });
+
+            // 卡验证
+            verifyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const cardNum = verifyCardNumber.value.trim();
+                if(!isValidCardNumber(cardNum)) { showError(verifyCardNumber, verifyCardError); hideResultBox(verifyResult); return; }
+                clearError(verifyCardNumber, verifyCardError);
+                const data = getStoredData();
+                const user = data.users.find(u => u.cardNumber === cardNum);
+                if(user) {
+                    showResultBox(verifyResult, 'success', `卡号验证通过！该卡为真实有效卡，持卡人：${user.name}（蛋仔编号：${user.eggId}）。`);
+                } else {
+                    showResultBox(verifyResult, 'error', '卡号验证失败！该卡号不存在，可能为伪造卡。');
+                }
+            });
+
+            // ===== 后台管理 =====
+            const ADMIN_KEY = 'danziAdminData_v1';
+            // ===== 预设管理员账号与密码（系统统一分配，不支持注册/创建账号）=====
+            // 如需修改账号或密码，直接改下面两个常量即可（密码建议保持复杂度：含大小写字母、数字、特殊字符，≥8位）
+            const ADMIN_USER = 'admin';
+            const ADMIN_PASS = 'Admin@2026';
+            const CONNECT_SNIPPET = [
+                '<!-- 蛋仔医疗保障网 对接脚本（嵌入目标网站） -->',
+                '<script>',
+                '(function(){',
+                '  function b64ToBytes(b){var s=atob(b),a=[];for(var i=0;i<s.length;i++)a.push(s.charCodeAt(i));return a;}',
+                '  function bytesToStr(a){var s="";for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return decodeURIComponent(escape(s));}',
+                '  function xorWith(a,code){var k=[];for(var i=0;i<code.length;i++)k.push(code.charCodeAt(i));return a.map(function(b,i){return b^k[i%k.length];});}',
+                '  function decodeDataPackage(code,pkg){if(String(pkg).indexOf("DZLINK_")!==0)throw new Error("数据包格式错误");var bytes=b64ToBytes(pkg.slice(7));var x=xorWith(bytes,code);return JSON.parse(bytesToStr(x));}',
+                '  window.DanziLink={ connect:function(code,pkg){ return decodeDataPackage(code,pkg).accounts; } };',
+                '})();',
+                '<\/script>',
+                '<!-- 使用示例： var accounts = DanziLink.connect("你的对接数据码","DZLINK_xxxx..."); console.log(accounts); -->'
+            ].join('\n');
+
+            function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+            function strToUtf8Bytes(str){ var utf8=unescape(encodeURIComponent(str)); var a=[]; for(var i=0;i<utf8.length;i++) a.push(utf8.charCodeAt(i)); return a; }
+            function utf8BytesToStr(a){ var s=''; for(var i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return decodeURIComponent(escape(s)); }
+            function xorKeyBytes(bytes, code){ var k=[]; for(var i=0;i<code.length;i++) k.push(code.charCodeAt(i)); return bytes.map(function(b,i){ return b ^ k[i % k.length]; }); }
+            function bytesToB64(a){ var s=''; for(var i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); }
+            function b64ToBytes(b){ var s=atob(b), a=[]; for(var i=0;i<s.length;i++) a.push(s.charCodeAt(i)); return a; }
+            function buildDataPackage(code, accounts, storedItems){
+                var payload = { v:1, ts: Date.now(), accounts: accounts, storedItems: storedItems };
+                var json = JSON.stringify(payload);
+                var bytes = strToUtf8Bytes(json);
+                var xored = xorKeyBytes(bytes, code);
+                return 'DZLINK_' + bytesToB64(xored);
+            }
+            function getAdminData(){
+                try {
+                    var raw = localStorage.getItem(ADMIN_KEY);
+                    if(raw){ var p = JSON.parse(raw); if(p && typeof p==='object') return p; }
+                } catch(e){}
+                return { dataCode:'', storedItems:[] };
+            }
+            function saveAdminData(d){ try{ localStorage.setItem(ADMIN_KEY, JSON.stringify(d)); }catch(e){} }
+
+            function renderAdminAccounts(){
+                var data = getStoredData();
+                var users = data.users || [];
+                adminAccountsBody.innerHTML = '';
+                if(users.length === 0){
+                    adminAccountsBody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">暂无账号数据，请先注册账号。</td></tr>';
+                    return;
+                }
+                users.forEach(function(u){
+                    var tr = document.createElement('tr');
+                    var ins = (u.insurances||[]).map(function(i){ return i.type; }).join('、') || '无';
+                    tr.innerHTML = '<td>'+escapeHtml(u.name)+'</td><td>'+escapeHtml(u.eggId)+'</td><td>'+escapeHtml(u.insuranceNumber)+'</td><td>'+escapeHtml(u.cardNumber||'未办卡')+'</td><td>'+(u.balance!=null?u.balance.toFixed(2):'0.00')+'</td><td>'+escapeHtml(ins)+'</td><td>'+escapeHtml(u.registDate||'')+'</td>';
+                    adminAccountsBody.appendChild(tr);
+                });
+            }
+            function renderStoreList(){
+                var admin = getAdminData();
+                var items = admin.storedItems || [];
+                storeList.innerHTML = '';
+                if(items.length === 0){
+                    storeList.innerHTML = '<p style="color:#888;font-size:13px;">暂无已存储数据。</p>';
+                    return;
+                }
+                items.forEach(function(it, idx){
+                    var div = document.createElement('div');
+                    div.style.cssText = 'border:1px solid var(--border-light);border-radius:8px;padding:12px 14px;margin-bottom:10px;';
+                    var head = document.createElement('div');
+                    head.style.cssText = 'display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+                    var title = document.createElement('strong');
+                    title.style.cssText = 'color:var(--primary-dark);';
+                    title.textContent = it.key;
+                    var date = document.createElement('span');
+                    date.style.cssText = 'font-size:12px;color:#999;margin-left:auto;';
+                    date.textContent = '更新于 ' + (it.updated||'');
+                    head.appendChild(title); head.appendChild(date);
+                    var body = document.createElement('div');
+                    body.style.cssText = 'font-size:13px;color:var(--text-mid);margin-top:6px;white-space:pre-wrap;word-break:break-all;';
+                    body.textContent = it.value || '(空)';
+                    var actions = document.createElement('div');
+                    actions.style.cssText = 'margin-top:8px;display:flex;gap:8px;';
+                    var del = document.createElement('button');
+                    del.className = 'btn btn-secondary btn-sm';
+                    del.textContent = '删除';
+                    del.addEventListener('click', function(){ deleteStoreItem(idx); });
+                    actions.appendChild(del);
+                    div.appendChild(head); div.appendChild(body); div.appendChild(actions);
+                    storeList.appendChild(div);
+                });
+            }
+            function deleteStoreItem(idx){
+                if(!confirm('确定删除该条存储数据吗？')) return;
+                var admin = getAdminData();
+                admin.storedItems.splice(idx,1);
+                saveAdminData(admin);
+                renderStoreList();
+            }
+            function fallbackCopy(text){
+                try{
+                    var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+                }catch(e){}
+            }
+            function copyText(text, resultBox, okMsg){
+                var done = function(){ if(resultBox) showResultBox(resultBox,'success', okMsg); };
+                if(navigator.clipboard && navigator.clipboard.writeText){
+                    navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+                } else { fallbackCopy(text); done(); }
+            }
+
+            storeForm.addEventListener('submit', function(e){
+                e.preventDefault();
+                var key = storeKeyInput.value.trim();
+                if(!key){ showError(storeKeyInput, storeKeyError); return; }
+                clearError(storeKeyInput, storeKeyError);
+                var val = storeValueInput.value;
+                var admin = getAdminData();
+                var found = admin.storedItems.find(function(i){ return i.key === key; });
+                if(found){ found.value = val; found.updated = formatDate(new Date()); }
+                else { admin.storedItems.push({ key:key, value:val, updated: formatDate(new Date()) }); }
+                saveAdminData(admin);
+                storeKeyInput.value=''; storeValueInput.value='';
+                renderStoreList();
+                showResultBox(storeResult, 'success', '数据已保存（名称「'+escapeHtml(key)+'」）。');
+            });
+            refreshAccountsBtn.addEventListener('click', function(){ renderAdminAccounts(); });
+            genCodeBtn.addEventListener('click', function(){
+                var chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+                var c='';
+                for(var i=0;i<20;i++) c+=chars[Math.floor(Math.random()*chars.length)];
+                dataCodeInput.value = c;
+                hideResultBox(codeResult);
+            });
+            saveCodeBtn.addEventListener('click', function(){
+                var code = dataCodeInput.value.trim();
+                if(!code){ showResultBox(codeResult,'error','请先生成或填写对接数据码。'); return; }
+                var admin = getAdminData();
+                admin.dataCode = code;
+                saveAdminData(admin);
+                showResultBox(codeResult,'success','对接数据码已保存。');
+            });
+            copyCodeBtn.addEventListener('click', function(){ copyText(dataCodeInput.value.trim(), codeResult, '对接数据码已复制到剪贴板。'); });
+            copyPackageBtn.addEventListener('click', function(){ copyText(packageOutput.value, packageResult, '对接数据包已复制。'); });
+            copySnippetBtn.addEventListener('click', function(){ copyText(connectSnippet.value, packageResult, '对接脚本已复制。'); });
+            genPackageBtn.addEventListener('click', function(){
+                var code = dataCodeInput.value.trim();
+                if(!code){ showResultBox(packageResult,'error','请先在「对接数据码」处生成或填写数据码并保存。'); return; }
+                var data = getStoredData();
+                var users = (data.users||[]).map(function(u){
+                    return {
+                        name:u.name, eggId:u.eggId, homepage:u.homepage,
+                        insuranceNumber:u.insuranceNumber, cardNumber:u.cardNumber||'',
+                        balance:u.balance||0, registDate:u.registDate||'',
+                        insurances:(u.insurances||[]).map(function(i){return {type:i.type,price:i.price,purchaseDate:i.purchaseDate,expiryDate:i.expiryDate};})
+                    };
+                });
+                var admin = getAdminData();
+                var pkg = buildDataPackage(code, users, admin.storedItems||[]);
+                packageOutput.value = pkg;
+                showResultBox(packageResult,'success','对接数据包已生成。请将「对接数据码」与「对接数据包」一并提供给目标网站，目标网站使用下方脚本即可读取账号数据。');
+            });
+            exportJsonBtn.addEventListener('click', function(){
+                var data = getStoredData();
+                var users = (data.users||[]).map(function(u){
+                    return { name:u.name, eggId:u.eggId, homepage:u.homepage, insuranceNumber:u.insuranceNumber, cardNumber:u.cardNumber||'', balance:u.balance||0, registDate:u.registDate||'', insurances:u.insurances||[] };
+                });
+                var blob = new Blob([JSON.stringify(users, null, 2)], {type:'application/json'});
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url; a.download = 'danzi_accounts_' + formatDate(new Date()) + '.json';
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showResultBox(packageResult,'info','账号数据已导出为 JSON 文件。');
+            });
+
+            const ADMIN_SESSION_KEY = 'danziAdminSession_v1';
+            function isAdminLoggedIn(){
+                return localStorage.getItem(ADMIN_SESSION_KEY) === '1';
+            }
+
+            adminAuthForm.addEventListener('submit', function(e){
+                e.preventDefault();
+                hideResultBox(adminAuthResult);
+                var user = adminUserInput.value.trim();
+                var pw = adminPassInput.value;
+                if(!user){ showError(adminUserInput, adminPassError); adminPassError.textContent = '请输入管理员账号。'; return; }
+                if(!pw){ showError(adminPassInput, adminPassError); adminPassError.textContent = '请输入密码。'; return; }
+                clearError(adminUserInput, adminPassError);
+                // 纯登录校验：只认预置的管理员账号与密码，不支持创建/注册
+                if(user !== ADMIN_USER || pw !== ADMIN_PASS){
+                    showError(adminPassInput, adminPassError); adminPassError.textContent = '账号或密码错误。'; return;
+                }
+                clearError(adminPassInput, adminPassError);
+                localStorage.setItem(ADMIN_SESSION_KEY, '1');
+                adminPassInput.value = '';
+                showResultBox(adminAuthResult,'success','登录成功，已进入后台。');
+                updateAdminPage();
+            });
+            adminLogoutBtn.addEventListener('click', function(){
+                localStorage.removeItem(ADMIN_SESSION_KEY);
+                adminUserInput.value=''; adminPassInput.value='';
+                clearError(adminUserInput, adminPassError);
+                clearError(adminPassInput, adminPassError);
+                hideResultBox(adminAuthResult);
+                updateAdminPage();
+            });
+
+            function updateAdminPage(){
+                if(!isAdminLoggedIn()){
+                    // 未登录：显示登录卡片
+                    adminGateTitle.textContent = '管理员登录';
+                    adminGate.style.display = 'block';
+                    adminContent.style.display = 'none';
+                    return;
+                }
+                // 已登录，展示后台
+                adminUserLabel.textContent = ADMIN_USER;
+                adminGate.style.display = 'none';
+                adminContent.style.display = 'block';
+                var admin = getAdminData();
+                renderAdminAccounts();
+                renderStoreList();
+                dataCodeInput.value = admin.dataCode || '';
+                connectSnippet.value = CONNECT_SNIPPET;
+            }
+
+            // 自动登录检查
+            function autoLogin() {
+                const savedInsuranceNumber = localStorage.getItem(SESSION_KEY);
+                if(savedInsuranceNumber) {
+                    const data = getStoredData();
+                    const user = data.users.find(u => u.insuranceNumber === savedInsuranceNumber);
+                    if(user) {
+                        currentUser = user;
+                        updateAuthUI();
+                        showPage('home');
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            window.addEventListener('load', function() {
+                if(!autoLogin()) {
+                    setTimeout(openModal, 500);
+                }
+            });
+
+            // 初始化
+            updateAuthUI();
+            showPage('home');
+            refreshCaptcha();
+        })();
+    </script>
+</body>
+</html>
